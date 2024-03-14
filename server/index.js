@@ -23,6 +23,12 @@ app.use('/api', userRouter);
 app.use('/api', iotRouter);
 app.use(errorMiddleware)
 
+function logMessage() {
+   console.log("This message is logged every 15 seconds.");
+}
+
+setInterval(logMessage, 15000);
+
 const start = async () => {
    try {
       await mongoose.connect(process.env.DB_URL);
