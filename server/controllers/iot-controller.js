@@ -10,3 +10,5 @@ class IotController {
     }
   }
 }
+
+module.exports = new IotController();
