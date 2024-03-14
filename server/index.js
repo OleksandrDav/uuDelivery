@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const userRouter = require('./routers/user-router');
 const errorMiddleware = require('./middlewares/error-middleware');
+const iotRouter = require('./routers/iot-router');
 
 const PORT = process.env.PORT || 5000;
 
@@ -19,9 +20,8 @@ app.use(cors(
 ));
 
 app.use('/api', userRouter);
+app.use('/api', iotRouter);
 app.use(errorMiddleware)
-console.log(process.env.DB_URL);
-console.log(typeof process.env.DB_URL);
 
 const start = async () => {
    try {
