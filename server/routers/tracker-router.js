@@ -7,6 +7,8 @@ router.post("/", trackerController.createTracker);
 router.get("/", trackerController.getTrackers);
 router.get("/notInOrder", trackerController.getNotInOrder);
 router.get("/:id", trackerController.getTrackerById)
-
+router.put("/:id",
+   body('status').isString().contains("active" || "deactivated").withMessage('Status must be an active or deactivated string.'),
+   trackerController.updateTrackerStatus);
 
 module.exports = router;

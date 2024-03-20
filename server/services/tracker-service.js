@@ -18,7 +18,7 @@ class TrackerService {
       return trackers;
    }
    async getTrackerById(id) {
-      if (id === null || id === undefined || id === ":id") {
+      if (!id || id === ":id") {
          throw ApiError.BadRequest('Id is not defined');
       }
       const tracker = await trackerModel.findById(id);
@@ -31,6 +31,19 @@ class TrackerService {
       const tracker = await trackerModel.findOne({ status: "active", inOrder: false });
       if (tracker === null) {
          throw ApiError.NotFoundError('Tracker not found. There are no active trackers or not in order');
+      }
+      return tracker;
+   }
+   async updateTrackerStatus(id, status) {
+      if (!id || id === ":id") {
+         throw ApiError.BadRequest('Id is not defined');
+      }
+      if (!status) {
+         throw ApiError.BadRequest('Status is not defined');
+      }
+      const tracker = await trackerModel.findByIdAndUpdate(id, { status: status }, { new: true });
+      if (tracker === null) {
+         throw ApiError.NotFoundError('Tracker not found');
       }
       return tracker;
    }

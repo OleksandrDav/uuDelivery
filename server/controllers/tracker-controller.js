@@ -36,6 +36,20 @@ class TrackerController {
          next(error);
       }
    }
+   async updateTrackerStatus(req, res, next) {
+      try {
+         const errors = validationResult(req);
+         if (!errors.isEmpty()) {
+            return next(ApiError.BadRequest('Validation error', errors.array()));
+         }
+         const { id } = req.params;
+         const { status } = req.body;
+         const tracker = await trackerService.updateTrackerStatus(id, status);
+         return res.json(tracker);
+      } catch (error) {
+         next(error);
+      }
+   }
 }
 
 module.exports = new TrackerController();
