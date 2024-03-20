@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 const userRouter = require('./routers/user-router');
 const errorMiddleware = require('./middlewares/error-middleware');
 const iotRouter = require('./routers/iot-router');
+const orderRouter = require('./routers/order-router');
+const trackerRouter = require('./routers/tracker-router');
 
 const PORT = process.env.PORT || 5000;
 
@@ -19,8 +21,12 @@ app.use(cors(
    // }
 ));
 
-app.use('/api', userRouter);
-app.use('/api', iotRouter);
+app.use('/api/auth', userRouter);
+app.use('/api/iot', iotRouter);
+app.use('/api/order', orderRouter);
+app.use('/api/tracker', trackerRouter)
+
+
 app.use(errorMiddleware)
 
 const start = async () => {
