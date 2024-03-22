@@ -1,7 +1,7 @@
 const orderModel = require("../models/order-model");
-const UserDto = require('../dtos/user-dto');
 const ApiError = require('../errors/api-error');
 const trackerService = require('./tracker-service');
+const mailService = require("./mail-service");
 
 class OrderService {
    async createOrder(destination, customerEmail) {
@@ -40,6 +40,7 @@ class OrderService {
       if (!order) {
          throw ApiError.BadRequest('Order not found');
       }
+      await mailService.startOrderMail(order.destination, order.customerEmail, order._id);
       return order;
    }
 
@@ -48,6 +49,7 @@ class OrderService {
       if (!order) {
          throw ApiError.BadRequest('Order not found');
       }
+      await mailService.endOrderMail(order.customerEmail, order._id);
       return order;
    }
 
