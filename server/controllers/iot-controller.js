@@ -9,7 +9,7 @@ class IotController {
 
          if (iotData && iotData.data !== undefined) {
             const lpp = new LPPDecoder();
-            const payload = Buffer.from(req.body.data, 'hex');
+            const payload = Buffer.from(req.body.data, 'base64');
             decodedData = lpp.decode(payload);
             console.log(decodedData);
          } else {
