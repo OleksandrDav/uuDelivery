@@ -31,17 +31,29 @@ class OrderService {
       return order;
    }
 
-   async startOrder(id, userId) {
+   async startOrder(ids, userId) {
       const tracker = await trackerService.getNotInOrder();
       if (!tracker) {
          throw ApiError.BadRequest('No available trackers');
       }
-      const order = await orderModel.findByIdAndUpdate(id, { trackerId: tracker, userId, start: new Date().toISOString() }, { new: true });
-      if (!order) {
-         throw ApiError.BadRequest('Order not found');
+
+      const orders = await orderModel.find({ _id: { $in: ids } });
+      if (!orders || orders.length === 0) {
+         throw ApiError.NotFoundError('Orders not found');
       }
-      await mailService.startOrderMail(order.destination, order.customerEmail, order._id);
-      return order;
+
+      const updatedOrders = [];
+      for (const order of orders) {
+         const updatedOrder = await orderModel.findByIdAndUpdate(order._id, { trackerId: tracker._id, userId, start: new Date().toISOString() }, { new: true });
+         if (!updatedOrder) {
+            throw ApiError.BadRequest(`Error starting order with ID ${order._id}`);
+         }
+         updatedOrders.push(updatedOrder);
+         await mailService.startOrderMail(order.destination, order.customerEmail, order._id);
+      }
+
+      await trackerService.updateTrackerInOrder(tracker._id, true);
+      return updatedOrders;
    }
 
    async endOrder(id) {
@@ -49,12 +61,22 @@ class OrderService {
       if (!order) {
          throw ApiError.BadRequest('Order not found');
       }
+      const tracker = await trackerService.getTrackerById(order.trackerId);
+      if (!tracker) {
+         throw ApiError.BadRequest('Tracker not found');
+      }
+
+      const otherOrders = await orderModel.find({ trackerId: tracker._id, end: null });
+      if (otherOrders.length === 0) {
+         await trackerService.updateTrackerInOrder(tracker._id, false);
+      }
+      
       await mailService.endOrderMail(order.customerEmail, order._id);
       return order;
    }
 
    async deleteOrder(id) {
-      if (!id || id === ":id" ) {
+      if (!id || id === ":id") {
          throw ApiError.BadRequest('Id is not defined');
       }
       const order = await orderModel.findByIdAndDelete(id);

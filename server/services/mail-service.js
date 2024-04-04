@@ -59,6 +59,9 @@ class MailService {
                      text-decoration: none;
                      border-radius: 5px;
                  }
+                 a:visited {
+                    color: #fff;
+                }
              </style>
          </head>
          <body>
@@ -119,6 +122,9 @@ class MailService {
                           text-decoration: none;
                           border-radius: 5px;
                       }
+                      a:visited {
+                        color: #fff;
+                    }
                   </style>
               </head>
               <body>

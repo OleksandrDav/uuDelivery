@@ -47,6 +47,20 @@ class TrackerService {
       }
       return tracker;
    }
+
+   async updateTrackerInOrder(id, inOrder) {
+      if (!id || id === ":id") {
+         throw ApiError.BadRequest('Id is not defined');
+      }
+      if (!inOrder && inOrder !== false) {
+         throw ApiError.BadRequest('InOrder is not defined');
+      }
+      const tracker = await trackerModel.findByIdAndUpdate(id, { inOrder: inOrder }, { new: true });
+      if (tracker === null) {
+         throw ApiError.NotFoundError('Tracker not found');
+      }
+      return tracker;
+   }
 }
 
 module.exports = new TrackerService();
