@@ -4,7 +4,7 @@ const ApiError = require('../errors/api-error');
 
 class TrackerService {
    async createTracker() {
-      const tracker = await trackerModel.create({ status: "deactivated", inOrder: false });
+      const tracker = await trackerModel.create({ status: "new", inOrder: false });
       if (!tracker) {
          throw ApiError.BadRequest('Error creating tracker');
       }
