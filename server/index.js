@@ -26,6 +26,10 @@ app.use('/api/iot', iotRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/tracker', trackerRouter)
 
+app.get('/test', (req, res) => {
+   res.send('Server is pm2 running!');
+});
+
 
 app.use(errorMiddleware)
 
