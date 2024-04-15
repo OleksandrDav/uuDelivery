@@ -1,0 +1,124 @@
+{
+   deduplicationId: '29c69ab9-feda-4b71-b124-60252665b1a7',
+   time: '2024-04-11T14: 13: 20.942247549+00: 00',
+   deviceInfo: {
+     tenantId: '52f14cd4-c6f1-4fbd-8f87-4025e1d49242',
+     tenantName: 'ChirpStack',
+     applicationId: '9dc9f36f-6f72-4d54-afbb-77214e5b2956',
+     applicationName: 'uuDelivery',
+     deviceProfileId: 'bc8cda52-2db2-456e-bd81-13e60f97b7c3',
+     deviceProfileName: 'Primary',
+     deviceName: 'First node',
+     devEui: 'bbeeaaddbbeeeeff',
+     deviceClassEnabled: 'CLASS_A',
+     tags: {}
+   },
+   devAddr: '00a983c2'
+}
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  deduplicationId: '192e4518-9478-4e5c-b9b9-5165cc9ad6b4',
+  time: '2024-04-11T14:14:39.233632270+00:00',
+  deviceInfo: {
+    tenantId: '52f14cd4-c6f1-4fbd-8f87-4025e1d49242',
+    tenantName: 'ChirpStack',
+    applicationId: '9dc9f36f-6f72-4d54-afbb-77214e5b2956',
+    applicationName: 'uuDelivery',
+    deviceProfileId: 'bc8cda52-2db2-456e-bd81-13e60f97b7c3',
+    deviceProfileName: 'Primary',
+    deviceName: 'First node',
+    devEui: 'bbeeaaddbbeeeeff',
+    deviceClassEnabled: 'CLASS_A',
+    tags: {}
+  },
+  devAddr: '00ce8903',
+  adr: false,
+  dr: 0,
+  fCnt: 2,
+  fPort: 2,
+  confirmed: false,
+  data: 'AYgGdl7ylgoAA+gCZwEkA4YIAgv0D+Y=',
+  rxInfo: [
+    {
+      gatewayId: '080027ffff0c2338',
+      uplinkId: 8978,
+      nsTime: '2024-04-11T14:14:39.015890284+00:00',
+      rssi: -45,
+      snr: 13.5,
+      channel: 4,
+      location: {},
+      context: '32gx5A==',
+      metadata: [Object],
+      crcStatus: 'CRC_OK'
+    }
+  ],
+  txInfo: { frequency: 867900000, modulation: { lora: [Object] } }
+}
+
+
+
+
+2024-04-11T14:14:39.247Z
+[
+  {
+    channel: 1,
+    data: { latitude: 42.3518, longitude: -87.9094, altitude: 10 },
+    type: 136,
+    label: 'GPS'
+  },
+  { channel: 2, data: 29.2, label: 'Temperature Sensor', type: 103 },
+  {
+    channel: 3,
+    data: { x: 20.5, y: 30.6, z: 40.7 },
+    label: 'Gyroscope',
+    type: 134
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  deduplicationId: '192e4518-9478-4e5c-b9b9-5165cc9ad6b4',
+  time: '2024-04-11T14:14:39.233337248+00:00',
+  deviceInfo: {
+    tenantId: '52f14cd4-c6f1-4fbd-8f87-4025e1d49242',
+    tenantName: 'ChirpStack',
+    applicationId: '9dc9f36f-6f72-4d54-afbb-77214e5b2956',
+    applicationName: 'uuDelivery',
+    deviceProfileId: 'bc8cda52-2db2-456e-bd81-13e60f97b7c3',
+    deviceProfileName: 'Primary',
+    deviceName: 'First node',
+    devEui: 'bbeeaaddbbeeeeff',
+    deviceClassEnabled: 'CLASS_A',
+    tags: {}
+  },
+  margin: 5,
+  externalPowerSource: false,
+  batteryLevelUnavailable: true,
+  batteryLevel: 0
+}

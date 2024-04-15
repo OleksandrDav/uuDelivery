@@ -4,8 +4,12 @@ const { body } = require('express-validator');
 const orderController = require('../controllers/order-controller');
 
 router.post('/',
-   body('destination').trim().isLength({ min: 2, max: 100 }).withMessage('Destination must be between 2 and 100 characters'),
-   body('customerEmail').trim().isEmail().withMessage('Invalid email format').notEmpty().withMessage('Email cannot be empty'),
+   body('destination')
+      .trim().isLength({ min: 2, max: 100 })
+      .withMessage('Destination must be between 2 and 100 characters'),
+   body('customerEmail')
+      .trim().isEmail().withMessage('Invalid email format')
+      .notEmpty().withMessage('Email cannot be empty'),
    orderController.createOrder);
 router.get('/', orderController.getOrders);
 router.get('/:id', orderController.getOneOrder);

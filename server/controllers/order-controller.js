@@ -9,8 +9,14 @@ class OrderController {
          if (!errors.isEmpty()) {
             return next(ApiError.BadRequest('Validation error', errors.array()));
          }
-         const { destination, customerEmail } = req.body;
-         const orderData = await orderService.createOrder(destination, customerEmail);
+         const { destination, customerEmail, temperatureMax, temperatureMin, tiltAngleMax } = req.body;
+         const orderData = await orderService.createOrder(
+            destination,
+            customerEmail,
+            temperatureMax,
+            temperatureMin,
+            tiltAngleMax
+         );
          return res.json(orderData);
       } catch (error) {
          next(error);

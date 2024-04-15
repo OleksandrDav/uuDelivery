@@ -4,8 +4,18 @@ const trackerService = require('./tracker-service');
 const mailService = require("./mail-service");
 
 class OrderService {
-   async createOrder(destination, customerEmail) {
-      const order = await orderModel.create({ destination, customerEmail, trackerId: null, userId: null, start: null, end: null });
+   async createOrder(destination, customerEmail, temperatureMax, temperatureMin, tiltAngleMax) {
+      const order = await orderModel.create({
+         destination,
+         customerEmail,
+         temperatureMax,
+         temperatureMin,
+         tiltAngleMax,
+         trackerId: null,
+         userId: null,
+         start: null,
+         end: null
+      });
       if (!order) {
          throw ApiError.BadRequest('Error creating order');
       }
@@ -70,7 +80,7 @@ class OrderService {
       if (otherOrders.length === 0) {
          await trackerService.updateTrackerInOrder(tracker._id, false);
       }
-      
+
       await mailService.endOrderMail(order.customerEmail, order._id);
       return order;
    }
