@@ -28,6 +28,15 @@ class TrackerController {
          next(error);
       }
    }
+   async deleteTracker(req, res, next) {
+      try {
+         const { id } = req.params;
+         const tracker = await trackerService.deleteTracker(id);
+         return res.json(tracker);
+      } catch (error) {
+         next(error);
+      }
+   }
    async getNotInOrder(req, res, next) {
       try {
          const tracker = await trackerService.getNotInOrder();

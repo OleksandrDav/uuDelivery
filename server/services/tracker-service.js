@@ -27,6 +27,16 @@ class TrackerService {
       }
       return tracker;
    }
+   async deleteTracker(id) {
+      if (!id || id === ":id") {
+         throw ApiError.BadRequest('Id is not defined');
+      }
+      const tracker = await trackerModel.findByIdAndDelete(id);
+      if (tracker === null) {
+         throw ApiError.NotFoundError('Tracker not found');
+      }
+      return tracker;
+   }
    async getNotInOrder() {
       const tracker = await trackerModel.findOne({ status: "active", inOrder: false });
       if (tracker === null) {
