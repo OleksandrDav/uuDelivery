@@ -1,27 +1,26 @@
-const {Schema, model} = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const iotSchema = new Schema({
-   timestamp: {
-      type: Date,
-      default: Date.now
-   },
-   temperature: {
-      type: Number,
-      required: true
-   },    
-   gps: {
-      type: {
-         type: String,
-         enum: ['Point'],
+const iotSchema = new Schema(
+   {
+      metadata: {
+         type: Object,
          required: true
       },
-      coordinates: {
-         type: [Number],
+      timestamp: {
+         type: Date,
+         default: Date.now
+      },
+      data: {
+         type: Array,
          required: true
       }
+   },
+   {
+      timeseries: {
+         timeField: 'timestamp',
+         metaField: 'metadata'
+      }
    }
-});
-
-iotSchema.index({ timestamp: 1 });
+);
 
 module.exports = model('Iot', iotSchema);

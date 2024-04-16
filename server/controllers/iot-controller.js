@@ -1,25 +1,19 @@
 const iotService = require('../services/iot-service');
-const { LPPDecoder } = require('lpp-node');
+const ApiError = require('../errors/api-error');
 
 class IotController {
-   async getIotData(req, res) {
+   async createIotData(req, res, next) {
       try {
          const iotData = req.body;
          let decodedData = {};
-
-         if (iotData && iotData.data !== undefined) {
-            const lpp = new LPPDecoder();
-            const payload = Buffer.from(req.body.data, 'base64');
-            decodedData = lpp.decode(payload);
-            console.log(decodedData);
+         if (iotData.data) {
+            decodedData = await iotService.createIotData(iotData);
          } else {
-            console.log("Metadata packet");
+            throw ApiError.BadRequest('Invalid request. Data field is required.');
          }
-
-         res.status(200).json(decodedData);
+         return res.json(decodedData);
       } catch (error) {
-         console.log(error);
-         res.status(500).json({ error: 'Internal Server Error' });
+         next(error);
       }
    }
 }
