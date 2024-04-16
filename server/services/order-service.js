@@ -22,8 +22,16 @@ class OrderService {
       return order;
    }
 
-   async getOrders() {
-      const orders = await orderModel.find();
+   async getOrders(filterCriteria = {}) {
+      let query = {};
+      if (filterCriteria.userId) {
+         query.userId = filterCriteria.userId;
+      }
+      if (filterCriteria.start !== undefined) {
+         query.start = { $ne: null };
+      }
+   
+      const orders = await orderModel.find(query);
       if (orders.length === 0) {
          throw ApiError.NotFoundError('Orders not found');
       }

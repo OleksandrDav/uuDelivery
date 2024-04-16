@@ -24,7 +24,8 @@ class OrderController {
    }
    async getOrders(req, res, next) {
       try {
-         const orders = await orderService.getOrders();
+         const filterCriteria = req.body;
+         const orders = await orderService.getOrders(filterCriteria);
          return res.json(orders);
       } catch (error) {
          next(error);
