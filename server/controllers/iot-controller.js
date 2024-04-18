@@ -8,8 +8,6 @@ class IotController {
          let decodedData = {};
          if (iotData.data) {
             decodedData = await iotService.createIotData(iotData);
-         } else {
-            throw ApiError.BadRequest('Invalid request. Data field is required.');
          }
          return res.json(decodedData);
       } catch (error) {
