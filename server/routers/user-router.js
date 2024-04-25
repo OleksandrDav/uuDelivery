@@ -10,6 +10,7 @@ router.post('/registration',
    body('password').isLength({ min: 3, max: 32 }).withMessage('Password must be between 3 and 32 characters'),
    body('name').isLength({ min: 2, max: 32 }).withMessage('Name must be between 2 and 32 characters'),
    body('surname').isLength({ min: 2, max: 32 }).withMessage('Surname must be between 2 and 32 characters'),
+   body('role').isIn(['Manager', 'DeliveryMan']).withMessage('Role must be either Manager or DeliveryMan'),
    userController.registration
 );
 router.post('/login',
@@ -18,7 +19,7 @@ router.post('/login',
    userController.login)
 router.post('/logout', userController.logout)
 router.get('/refresh', userController.refresh)
-router.get('/users', roleMiddleware(['DeliveryMan']), userController.getUsers)
+router.get('/users', roleMiddleware(['Manager']), userController.getUsers)
 // router.get('/users', authMiddleware, userController.getUsers)
 
 module.exports = router;
