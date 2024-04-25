@@ -27,9 +27,14 @@ class OrderService {
       if (filterCriteria.userId) {
          query.userId = filterCriteria.userId;
       }
+
       if (filterCriteria.start !== undefined) {
-         query.start = { $ne: null };
-      }
+         if (filterCriteria.start === true) {
+             query.start = { $ne: null };
+         } else {
+             query.start = null;
+         }
+     }
    
       const orders = await orderModel.find(query);
       if (orders.length === 0) {
