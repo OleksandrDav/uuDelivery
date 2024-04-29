@@ -67,7 +67,7 @@ class OrderService {
 
       const updatedOrders = [];
       for (const order of orders) {
-         const updatedOrder = await orderModel.findByIdAndUpdate(order._id, { trackerId: tracker._id, userId, start: new Date().toISOString() }, { new: true });
+         const updatedOrder = await orderModel.findByIdAndUpdate(order._id, { trackerId: tracker.trackerId, userId, start: new Date().toISOString() }, { new: true });
          if (!updatedOrder) {
             throw ApiError.BadRequest(`Error starting order with ID ${order._id}`);
          }
@@ -75,7 +75,7 @@ class OrderService {
          await mailService.startOrderMail(order.destination, order.customerEmail, order._id);
       }
 
-      await trackerService.updateTrackerInOrder(tracker._id, true);
+      await trackerService.updateTrackerInOrder(tracker.trackerId, true);
       return updatedOrders;
    }
 
@@ -89,9 +89,9 @@ class OrderService {
          throw ApiError.BadRequest('Tracker not found');
       }
 
-      const otherOrders = await orderModel.find({ trackerId: tracker._id, end: null });
+      const otherOrders = await orderModel.find({ trackerId: tracker.trackerId, end: null });
       if (otherOrders.length === 0) {
-         await trackerService.updateTrackerInOrder(tracker._id, false);
+         await trackerService.updateTrackerInOrder(tracker.trackerId, false);
       }
 
       await mailService.endOrderMail(order.customerEmail, order._id);

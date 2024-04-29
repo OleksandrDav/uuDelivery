@@ -69,7 +69,7 @@ class MailService {
                  <h1>Your Order Has Started</h1>
                  <p><strong>Destination:</strong> ${destination}</p>
                  <p><strong>Order ID:</strong> ${orderId}</p>
-                 <a href="${process.env.CLIENT_URL}">Track Your Order</a>
+                 <a href="${process.env.CLIENT_URL}" style="color: white">Track Your Order</a>
              </div>
          </body>
          </html>
@@ -131,7 +131,7 @@ class MailService {
                   <div class="container">
                       <h1>Your Order Has Ended</h1>
                       <p><strong>Order ID:</strong> ${orderId}</p>
-                      <a href="${process.env.CLIENT_URL}">Track Your Order</a>
+                      <a href="${process.env.CLIENT_URL}" style="color: white">Track Your Order</a>
                   </div>
               </body>
               </html>

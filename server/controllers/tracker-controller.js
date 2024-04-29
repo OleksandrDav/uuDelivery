@@ -5,7 +5,8 @@ const trackerService = require('../services/tracker-service');
 class TrackerController {
    async createTracker(req, res, next) {
       try {
-         const tracker = await trackerService.createTracker();
+         const id = req.body.id;
+         const tracker = await trackerService.createTracker(id);
          return res.json(tracker);
       } catch (error) {
          next(error);

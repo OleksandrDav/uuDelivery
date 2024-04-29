@@ -1,14 +1,18 @@
 const trackerModel = require('../models/tracker-model');
-const UserDto = require('../dtos/user-dto');
 const ApiError = require('../errors/api-error');
 
 class TrackerService {
-   async createTracker() {
-      const tracker = await trackerModel.create({ status: "new", inOrder: false });
-      if (!tracker) {
+   async createTracker(trackerId) {
+      const existingTracker = await trackerModel.findOne({trackerId: trackerId});
+   if (existingTracker) {
+      return existingTracker;
+   } else {
+      const newTracker = await trackerModel.create({ trackerId, status: "new", inOrder: false });
+      if (!newTracker) {
          throw ApiError.BadRequest('Error creating tracker');
       }
-      return tracker;
+      return newTracker;
+   }
    }
    async getTrackers() {
       const trackers = await trackerModel.find();
@@ -17,21 +21,21 @@ class TrackerService {
       }
       return trackers;
    }
-   async getTrackerById(id) {
-      if (!id || id === ":id") {
+   async getTrackerById(trackerId) {
+      if (!trackerId) {
          throw ApiError.BadRequest('Id is not defined');
       }
-      const tracker = await trackerModel.findById(id);
+      const tracker = await trackerModel.findOne({trackerId: trackerId});
       if (tracker === null) {
          throw ApiError.NotFoundError('Tracker not found');
       }
       return tracker;
    }
-   async deleteTracker(id) {
-      if (!id || id === ":id") {
+   async deleteTracker(trackerId) {
+      if (!trackerId) {
          throw ApiError.BadRequest('Id is not defined');
       }
-      const tracker = await trackerModel.findByIdAndDelete(id);
+      const tracker = await trackerModel.findOneAndDelete({trackerId: trackerId});
       if (tracker === null) {
          throw ApiError.NotFoundError('Tracker not found');
       }
@@ -44,28 +48,28 @@ class TrackerService {
       }
       return tracker;
    }
-   async updateTrackerStatus(id, status) {
-      if (!id || id === ":id") {
+   async updateTrackerStatus(trackerId, status) {
+      if (!trackerId) {
          throw ApiError.BadRequest('Id is not defined');
       }
       if (!status) {
          throw ApiError.BadRequest('Status is not defined');
       }
-      const tracker = await trackerModel.findByIdAndUpdate(id, { status: status }, { new: true });
+      const tracker = await trackerModel.findOneAndUpdate({trackerId: trackerId}, { status: status }, { new: true });
       if (tracker === null) {
          throw ApiError.NotFoundError('Tracker not found');
       }
       return tracker;
    }
 
-   async updateTrackerInOrder(id, inOrder) {
-      if (!id || id === ":id") {
+   async updateTrackerInOrder(trackerId, inOrder) {
+      if (!trackerId) {
          throw ApiError.BadRequest('Id is not defined');
       }
       if (!inOrder && inOrder !== false) {
          throw ApiError.BadRequest('InOrder is not defined');
       }
-      const tracker = await trackerModel.findByIdAndUpdate(id, { inOrder: inOrder }, { new: true });
+      const tracker = await trackerModel.findOneAndUpdate({trackerId: trackerId}, { inOrder: inOrder }, { new: true });
       if (tracker === null) {
          throw ApiError.NotFoundError('Tracker not found');
       }
