@@ -5,7 +5,7 @@ const { LPPDecoder } = require('lpp-node');
 
 class IotService {
    async createIotData(iotData) {
-      
+
       let decodedData = {}
       const lpp = new LPPDecoder();
       const payload = Buffer.from(iotData.data, 'base64');
@@ -24,6 +24,21 @@ class IotService {
       }
 
       return iot;
+   }
+
+   async getIotDataByTimestampRange(from, to) {
+      const iotData = await iotModel.find({
+         timestamp: {
+            $gte: new Date(from),
+            $lte: new Date(to)
+         }
+      });
+
+      if (iotData.length === 0) {
+         throw ApiError.NotFoundError('Iot data not found');
+      }
+      
+      return iotData;
    }
 }
 
