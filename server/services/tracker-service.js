@@ -35,7 +35,7 @@ class TrackerService {
       if (!trackerId) {
          throw ApiError.BadRequest('Id is not defined');
       }
-      const tracker = await trackerModel.findOneAndDelete({_id: trackerId});
+      const tracker = await trackerModel.findOneAndDelete({trackerId: trackerId});
       if (tracker === null) {
          throw ApiError.NotFoundError('Tracker not found');
       }
