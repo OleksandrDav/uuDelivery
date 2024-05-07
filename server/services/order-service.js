@@ -30,12 +30,20 @@ class OrderService {
 
       if (filterCriteria.start !== undefined) {
          if (filterCriteria.start === true) {
-             query.start = { $ne: null };
+            query.start = { $ne: null };
          } else {
-             query.start = null;
+            query.start = null;
          }
-     }
-   
+      }
+
+      if (filterCriteria.end !== undefined) {
+         if (filterCriteria.end === true) {
+            query.end = { $ne: null };
+         } else {
+            query.end = null;
+         }
+      }
+
       const orders = await orderModel.find(query);
       if (orders.length === 0) {
          throw ApiError.NotFoundError('Orders not found');
