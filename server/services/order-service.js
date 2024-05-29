@@ -13,6 +13,7 @@ class OrderService {
          tiltAngleMax,
          trackerId: null,
          userId: null,
+         damaged: false,
          start: null,
          end: null
       });
@@ -115,6 +116,25 @@ class OrderService {
          throw ApiError.BadRequest('Order not found');
       }
       return order;
+   }
+
+   async damagedOrders(trackerId, temperature, tiltAngle) {
+      const orders = await orderModel.find({ trackerId, end: null });
+      if (orders.length === 0) {
+         throw ApiError.NotFoundError('Orders not found');
+      }
+      for (const order of orders) {
+         if (order.temperatureMax > temperature
+            || order.temperatureMin < temperature
+            || order.tiltAngleMax < tiltAngle.x
+            || order.tiltAngleMax < tiltAngle.y) {
+            if (!order.damaged) {
+               await orderModel.findByIdAndUpdate(order._id, { damaged: true });
+               await mailService.damagedOrderMail(order.customerEmail, order._id);
+            }
+         }
+      }
+      return orders;
    }
 }
 

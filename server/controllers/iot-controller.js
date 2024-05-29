@@ -14,14 +14,11 @@ class IotController {
          next(error);
       }
    }
-   async getIotDataByTimestampRange(req, res, next) {
+   async getIotData(req, res, next) {
       try {
-         const { from, to } = req.body;
-         if (!from || !to) {
-            throw ApiError.BadRequest('Please provide both "from" and "to" timestamps');
-         }
+         const { from, to, deviceProfileId } = req.body;
 
-         const iotData = await iotService.getIotDataByTimestampRange(from, to);
+         const iotData = await iotService.getIotData(from, to, deviceProfileId);
          return res.json(iotData);
       } catch (error) {
          next(error);

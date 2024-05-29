@@ -8,6 +8,7 @@ const orderSchema = new Schema({
    temperatureMin: {type: String, required: true},
    tiltAngleMax: {type: String, required: true},
    trackerId: {type: String},
+   damaged: {type: Boolean, default: false},
    start: {type: String},
    end: {type: String},
 });

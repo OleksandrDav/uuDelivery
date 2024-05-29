@@ -87,8 +87,22 @@
 ]
 
 
-
-
+decodedData
+[
+  {
+    channel: 1,
+    data: { latitude: 42.3518, longitude: -87.9094, altitude: 10 },
+    type: 136,
+    label: 'GPS'
+  },
+  { channel: 2, data: 29.2, label: 'Temperature Sensor', type: 103 },
+  {
+    channel: 3,
+    data: { x: 20.5, y: 30.6, z: 40.7 },
+    label: 'Gyroscope',
+    type: 134
+  }
+]
 
 
 
