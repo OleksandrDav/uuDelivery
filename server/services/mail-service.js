@@ -69,7 +69,7 @@ class MailService {
                  <h1>Your Order Has Started</h1>
                  <p><strong>Destination:</strong> ${destination}</p>
                  <p><strong>Order ID:</strong> ${orderId}</p>
-                 <a href="${process.env.CLIENT_URL}" style="color: white">Track Your Order</a>
+                 <a href="https://uudelivery.vercel.app/track/${orderId}" style="color: white">Track Your Order</a>
              </div>
          </body>
          </html>
@@ -131,7 +131,7 @@ class MailService {
                   <div class="container">
                       <h1>Your Order Has Ended</h1>
                       <p><strong>Order ID:</strong> ${orderId}</p>
-                      <a href="${process.env.CLIENT_URL}" style="color: white">Track Your Order</a>
+                      <a href="https://uudelivery.vercel.app/track/${orderId}" style="color: white">Track Your Order</a>
                   </div>
               </body>
               </html>
@@ -194,7 +194,7 @@ class MailService {
                     <h1>Damaged Order Notification</h1>
                     <p><strong>Order ID:</strong> ${orderId}</p>
                     <p><strong>Customer Email:</strong> ${customerEmail}</p>
-                    <a href="${process.env.CLIENT_URL}" style="color: white">View Order Details</a>
+                    <a href="https://uudelivery.vercel.app/track/${orderId}" style="color: white">View Order Details</a>
                 </div>
             </body>
             </html>

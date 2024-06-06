@@ -12,6 +12,8 @@ class IotService {
       const payload = Buffer.from(iotData.data, 'base64');
       decodedData = lpp.decode(payload);
 
+      console.log(decodedData);
+
       await trackerService.createTracker(iotData.deviceInfo.deviceProfileId);
 
       const iot = await iotModel.create({
