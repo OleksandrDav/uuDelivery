@@ -121,7 +121,7 @@ class OrderService {
    async damagedOrders(trackerId, temperature, tiltAngle) {
       const orders = await orderModel.find({ trackerId, end: null });
       if (orders.length === 0) {
-         throw ApiError.NotFoundError('Orders not found');
+         return orders;
       }
       for (const order of orders) {
          if (order.temperatureMax > temperature
